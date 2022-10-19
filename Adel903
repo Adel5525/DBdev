@@ -1,0 +1,27 @@
+USE sakila;
+/*запрос 3.1*/
+
+Select actor_id, last_name, first_name from actor order by last_name;
+Select actor_id, last_name, first_name from actor order by last_name;
+
+/*запрос 3.2*/
+
+Select actor_id, last_name, first_name
+from actor
+where last_name = 'WILLIAMS'
+or last_name = 'DAVIS';
+
+/*запрос 3.3*/
+
+select rental_id
+from rental r
+where date(rental_date)='2005-07-05';
+
+/*запрос 3.4*/
+
+select c.email, r.return_date
+from customer c
+inner join rental r
+on c.castomer_id = r.customer_id
+where date(r.rental_date) = ' 2005-06-14'
+ordder by r.rental_date desc;
