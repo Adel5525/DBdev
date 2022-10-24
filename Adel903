@@ -1,0 +1,194 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema Huertos
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema Huertos
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `Huertos` DEFAULT CHARACTER SET utf8 ;
+USE `Huertos` ;
+
+-- -----------------------------------------------------
+-- Table `Huertos`.`Компания`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Huertos`.`Компания` (
+  `id kompany` INT NOT NULL,
+  `Name` VARCHAR(25) NULL,
+  PRIMARY KEY (`id kompany`),
+  UNIQUE INDEX `id kompany_UNIQUE` (`id kompany` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Huertos`.`Адрес`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Huertos`.`Адрес` (
+  `id adress` INT NOT NULL,
+  `adress` VARCHAR(45) NULL,
+  `Компания_id kompany` INT NOT NULL,
+  PRIMARY KEY (`id adress`, `Компания_id kompany`),
+  INDEX `fk_Адрес_Компания_idx` (`Компания_id kompany` ASC) VISIBLE,
+  CONSTRAINT `fk_Адрес_Компания`
+    FOREIGN KEY (`Компания_id kompany`)
+    REFERENCES `Huertos`.`Компания` (`id kompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Huertos`.`Контакты`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Huertos`.`Контакты` (
+  `id con` INT NOT NULL,
+  `phone` VARCHAR(25) NULL,
+  `email` VARCHAR(25) NULL,
+  `Компания_id kompany` INT NOT NULL,
+  PRIMARY KEY (`id con`, `Компания_id kompany`),
+  INDEX `fk_Контакты_Компания1_idx` (`Компания_id kompany` ASC) VISIBLE,
+  CONSTRAINT `fk_Контакты_Компания1`
+    FOREIGN KEY (`Компания_id kompany`)
+    REFERENCES `Huertos`.`Компания` (`id kompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Huertos`.`Цена`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Huertos`.`Цена` (
+  `id price` INT NOT NULL,
+  `price printer` VARCHAR(45) NULL,
+  `price fotopolimer` VARCHAR(45) NULL,
+  `Компания_id kompany` INT NOT NULL,
+  PRIMARY KEY (`id price`, `Компания_id kompany`),
+  INDEX `fk_Ценовой сегмент_Компания1_idx` (`Компания_id kompany` ASC) VISIBLE,
+  CONSTRAINT `fk_Ценовой сегмент_Компания1`
+    FOREIGN KEY (`Компания_id kompany`)
+    REFERENCES `Huertos`.`Компания` (`id kompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Huertos`.`Бренды`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Huertos`.`Бренды` (
+  `id brend` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `Компания_id kompany` INT NOT NULL,
+  PRIMARY KEY (`id brend`, `Компания_id kompany`),
+  INDEX `fk_Бренды_Компания1_idx` (`Компания_id kompany` ASC) VISIBLE,
+  CONSTRAINT `fk_Бренды_Компания1`
+    FOREIGN KEY (`Компания_id kompany`)
+    REFERENCES `Huertos`.`Компания` (`id kompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Huertos`.`Сервис`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Huertos`.`Сервис` (
+  `id serves` INT NOT NULL,
+  `serves` VARCHAR(45) NULL,
+  `Компания_id kompany` INT NOT NULL,
+  PRIMARY KEY (`id serves`, `Компания_id kompany`),
+  INDEX `fk_Сервис_Компания1_idx` (`Компания_id kompany` ASC) VISIBLE,
+  CONSTRAINT `fk_Сервис_Компания1`
+    FOREIGN KEY (`Компания_id kompany`)
+    REFERENCES `Huertos`.`Компания` (`id kompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Huertos`.`Разница`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Huertos`.`Разница` (
+  `id otlichia` INT NOT NULL,
+  `otlichia` VARCHAR(45) NULL,
+  `Компания_id kompany` INT NOT NULL,
+  PRIMARY KEY (`id otlichia`),
+  INDEX `fk_Отличия_Компания1_idx` (`Компания_id kompany` ASC) VISIBLE,
+  CONSTRAINT `fk_Отличия_Компания1`
+    FOREIGN KEY (`Компания_id kompany`)
+    REFERENCES `Huertos`.`Компания` (`id kompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Huertos`.`Струдничество`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Huertos`.`Струдничество` (
+  `id labaratory` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `Компания_id kompany` INT NOT NULL,
+  PRIMARY KEY (`id labaratory`, `Компания_id kompany`),
+  INDEX `fk_С кем работают_Компания1_idx` (`Компания_id kompany` ASC) VISIBLE,
+  CONSTRAINT `fk_С кем работают_Компания1`
+    FOREIGN KEY (`Компания_id kompany`)
+    REFERENCES `Huertos`.`Компания` (`id kompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Huertos`.`Схожесть`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Huertos`.`Схожесть` (
+  `id shodstvo` INT NOT NULL,
+  `shodstvo` VARCHAR(45) NULL,
+  `Компания_id kompany` INT NOT NULL,
+  PRIMARY KEY (`id shodstvo`),
+  INDEX `fk_Сходсто_Компания1_idx` (`Компания_id kompany` ASC) VISIBLE,
+  CONSTRAINT `fk_Сходсто_Компания1`
+    FOREIGN KEY (`Компания_id kompany`)
+    REFERENCES `Huertos`.`Компания` (`id kompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Huertos`.`Доставка`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Huertos`.`Доставка` (
+  `id dostavki` INT NOT NULL,
+  `price dostavki` VARCHAR(45) NULL,
+  `sroki` DATETIME NULL,
+  `Компания_id kompany` INT NOT NULL,
+  PRIMARY KEY (`id dostavki`, `Компания_id kompany`),
+  INDEX `fk_Доставка_Компания1_idx` (`Компания_id kompany` ASC) VISIBLE,
+  CONSTRAINT `fk_Доставка_Компания1`
+    FOREIGN KEY (`Компания_id kompany`)
+    REFERENCES `Huertos`.`Компания` (`id kompany`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Huertos`.`timestamps`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Huertos`.`timestamps` (
+  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` TIMESTAMP NULL);
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
