@@ -1,0 +1,28 @@
+9.1
+SELECT title
+FROM film
+WHERE film_id IN
+(SELECT fc.film_id
+FROM film_category fc INNER JOIN category c
+ON fc.category_id = c.category_id
+WHERE c.name = 'Action');
+
+9.2
+SELECT f.title
+FROM film f
+WHERE EXISTS
+(SELECT 1
+FROM film_category fc INNER JOIN category c
+ON fc.category_id = c.category_id
+WHERE c.name = 'Action'
+AND fc.film id = f.film id);
+
+/* Запрос к проекту - вывести id и ФИО продавцов, продавших одну или несколько товаров стоимостью больше 500р */
+use magazin;
+select p.id_prodavca, p2.fio_prodavca
+from prodazhy p
+inner join prodavcy p2
+on p.id_prodavca = p2.id_prodavca
+where p.id_tovara in (select k.id_knigi from katalog k where k.cena > 500)
+group by p.id_prodavca
+order by p.id_prodavca asc;
